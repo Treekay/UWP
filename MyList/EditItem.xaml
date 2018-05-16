@@ -1,0 +1,90 @@
+﻿<UserControl
+    x:Class="MyList.EditItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:ContentConverter x:Key="contentConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Height="auto" 
+                        Width="350"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center">
+                <StackPanel Height="170" Margin="0,20,0,0">
+                    <Image x:Name="DetailImg"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Source="{x:Bind current.path, Mode=OneWay}"
+                           MinWidth="180"
+                           MaxWidth="{Binding ElementName=slider, Path=Value, Mode=TwoWay}"
+                           MinHeight="180"
+                           MaxHeight="{Binding ElementName=slider, Path=Value, Mode=TwoWay}"/>
+                </StackPanel>
+                <AppBarButton x:Name="select"
+                              Icon="Pictures" 
+                              HorizontalAlignment="Left" 
+                              Label="Pictures" 
+                              Click="SelectPictureButton_Click"/>
+                <Slider x:Name="slider" 
+                        Maximum="280" 
+                        Minimum="180"
+                        Width="300"
+                        Height="30"/>
+                <TextBlock Text="Title" Style="{StaticResource headline}"/>
+                <TextBox x:Name="Title" 
+                         Height="32"
+                         HorizontalAlignment="Center" 
+                         Width="297" 
+                         TextWrapping="Wrap"
+                         Text="{x:Bind current.Title_, Mode=TwoWay}"/>
+                <TextBlock Text="Detail" Style="{StaticResource headline}"/>
+                <TextBox x:Name="Detail" 
+                         Height="100" 
+                         HorizontalAlignment="Center" 
+                         Width="297" 
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Text="{x:Bind current.Detail_, Mode=TwoWay}"/>
+                <TextBlock Text="DueDate" Style="{StaticResource headline}"/>
+                <DatePicker x:Name="DueDate" 
+                            RelativePanel.Below="date" 
+                            HorizontalAlignment="Center" 
+                            Height="32" 
+                            Width="297"
+                            Date="{x:Bind current.Date_, Mode=TwoWay}">
+                    <DatePicker.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </DatePicker.RenderTransform>
+                </DatePicker>
+                <StackPanel Orientation="Horizontal" 
+                            Width="300" 
+                            HorizontalAlignment="Center">
+                    <Button x:Name="CreateButton" 
+                            HorizontalAlignment="left" 
+                            Content="{x:Bind ViewModel.SelectedItem, Mode=OneWay, Converter={StaticResource contentConverter}}" 
+                            Click="CreateButton_Click"
+                            Margin="40,20,10,10"
+                            Style="{StaticResource button}"/>
+                    <Button x:Name="DeleteButton" 
+                            HorizontalAlignment="right" 
+                            Content="Cancel" 
+                            Click="CancelButton_Click"
+                            Margin="60,20,10,10"
+                            Style="{StaticResource button}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

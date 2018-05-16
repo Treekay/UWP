@@ -1,0 +1,197 @@
+﻿<Page
+    x:Class="MyList.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList"
+    xmlns:data="using:MyList"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required">
+
+    <Page.Resources>
+        <local:VisibilityConverter x:Key="converter"/>
+    </Page.Resources>
+    <Grid Height="auto">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="VisualStateMin0">
+                    <VisualState.Setters>
+                        <Setter Target="InlineListItemViewGrid.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="itemListView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="SearchLine.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="deleteItem.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="itemListView.(Grid.Row)" Value="0"/>
+                        <Setter Target="itemListView.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="itemListView.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,59,0,-1</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1" MinWindowHeight="0"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualStateMin600">
+                    <VisualState.Setters>
+                        <Setter Target="itemListView.(Grid.Row)" Value="0"/>
+                        <Setter Target="itemListView.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="itemListView.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>0,59,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="SearchLine.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="itemListView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="deleteItem.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="InlineListItemViewGrid.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="VisualStateMin900">
+                    <VisualState.Setters>
+                        <Setter Target="SearchLine.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="itemListView.(Grid.ColumnSpan)" Value="1"/>
+                        <Setter Target="InlineListItemViewGrid.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="0" MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.Background>
+            <ImageBrush x:Name="bg" ImageSource="Assets/desert.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Text="MyLists" Style="{StaticResource header}" Margin="15,5,0,10" Width="128"/>
+        <StackPanel x:Name="SearchLine" Orientation="Horizontal" HorizontalAlignment="Right">
+            <AppBarButton Icon="Back" Margin="0,10,0,0" Click="RefreshList" Height="40"/>
+            <TextBox Name="SearchBox"  HorizontalAlignment="Right" Width="200" Height="30" Background="Gray" Opacity="0.7" PlaceholderText="Search"/>
+            <AppBarButton Icon="Find" Margin="0,10,0,0" Click="SearchButton_Click" Height="40"/>
+        </StackPanel>
+        <ListView x:Name="itemListView" 
+                  Grid.Row="1" 
+                  Grid.Column="0"
+                  ItemsSource="{x:Bind ViewModel.AllItems}" 
+                  ScrollViewer.VerticalScrollMode="Enabled" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  IsItemClickEnabled="True" 
+                  ItemClick="ClickItem" Margin="0,0,0.4,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="data:ListItem">
+                    <UserControl  Margin="0,5,0,5">
+                        <Grid Height="50">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="42"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="qwe">
+                                    <VisualState x:Name="narrow">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="0" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="DetailImg.Visibility" Value="Collapsed" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="wide">
+                                        <VisualState.StateTriggers>
+                                            <AdaptiveTrigger MinWindowWidth="600" />
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="DetailImg.Visibility" Value="Visible" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <CheckBox x:Name="CheckBox" 
+                                  Grid.Column="0" 
+                                  Width="29" 
+                                  RenderTransformOrigin="0.175,0.516" 
+                                  IsChecked="{x:Bind isCompleted, Mode=TwoWay}" Click="CheckBox_Click"/>
+                            <Image x:Name="DetailImg"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               Width="100" 
+                               Source="{x:Bind path, Mode=OneWay}"/>
+                            <TextBlock Grid.Column="2" 
+                                   Text="{x:Bind Title_, Mode=OneWay}" 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Left"/>
+                            <TextBlock Grid.Column="2" 
+                                   Text="{x:Bind DateForm, Mode=OneWay}" 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Right"/>
+                            <Line Grid.Column="2" 
+                              x:Name="Line" 
+                              X1="1" 
+                              Stretch="Fill" 
+                              Stroke="Black" 
+                              StrokeThickness="3"
+                              Visibility="{Binding Path=IsChecked, ElementName=CheckBox, 
+                                            Mode=OneWay, Converter={StaticResource converter}}"/>
+                            <AppBarButton Grid.Column="3" Icon="Setting" VerticalAlignment="Center">
+                                <AppBarButton.Flyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Edit" Tag="{x:Bind}" Click="MenuEditClick"/>
+                                        <MenuFlyoutItem Text="Delete" Tag="{x:Bind}" Click="MenuDeleteClick"/>
+                                        <MenuFlyoutItem Text="share" Tag="{x:Bind}" Click="MenuShareClick"/>
+                                    </MenuFlyout>
+                                </AppBarButton.Flyout>
+                            </AppBarButton>
+                        </Grid>
+                    </UserControl>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Content="Clear" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="20,0" Style="{StaticResource button}">
+            <Button.Flyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="Clear Finish" Click="Clear_Finish"/>
+                    <MenuFlyoutItem Text="Clear All" Click="Clear_All"/>
+                </MenuFlyout>
+            </Button.Flyout>
+        </Button>
+
+        <local:EditItem x:Name="InlineListItemViewGrid" 
+                        Grid.Column="1" 
+                        Grid.Row="0" 
+                        Grid.RowSpan="3" 
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Add" Click="AddNewPageBtn_Click"/>
+            <AppBarButton x:Name="deleteItem" Icon="Delete" Click="DeleteItem"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="bgButton" Icon="Pictures" Label="Change Background" Click="ChangeBackground"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>

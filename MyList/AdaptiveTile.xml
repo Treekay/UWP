@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<tile>
+  <visual ShortName="MyList">
+    <binding template="TileSmall">
+      <image src="Assets\desert.jpg" placement="background"/>
+      <group>
+        <subgroup>
+          <text hint-align="top" hint-style="caption">标题</text>
+          <text hint-align="bottom" hint-style="captionsubtle">时间</text>
+        </subgroup>
+      </group>
+    </binding>
+    
+    <binding template="TileMedium">
+      <image src="Assets\desert.jpg" placement="background"/>
+      <group>
+        <subgroup>
+          <text hint-align="top" hint-style="body">标题</text>
+          <text hint-align="bottom" hint-style="captionSubtle">时间</text>
+        </subgroup>
+      </group>
+    </binding>
+
+    <binding template="TileWide">
+      <image src="Assets\desert.jpg" placement="background"/>
+      <group>
+        <subgroup>
+          <text hint-align="top" hint-style="body">标题</text>
+          <text hint-align="bottom" hint-style="captionsubtle">时间</text>
+        </subgroup>
+      </group>
+    </binding>
+
+    <binding template="TileLarge">
+      <image src="Assets\desert.jpg" placement="background"/>
+      <group>
+        <subgroup>
+          <text hint-align="top" hint-style="body" hint-wrap="true">标题</text>
+          <text hint-style="captionsubtle" hint-wrap="true">内容</text>
+          <text hint-align="bottom" hint-style="captionsubtle">时间</text>
+        </subgroup>
+      </group>
+    </binding>
+    
+  </visual>
+</tile>

@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="MyList.NewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Height="auto">
+        
+        <Grid.Background>
+            <ImageBrush x:Name="bg" ImageSource="Assets/desert.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Edit list item" Grid.Row="0" Style="{StaticResource header}"/>
+        <local:EditItem x:Name="EditItemGrid" Grid.Row="1"/>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="deleteItem" Icon="Delete" Click="DeleteItem"/>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="bgButton" Icon="Pictures" Label="Change Background" Click="ChangeBackground"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
